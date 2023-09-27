@@ -1,0 +1,56 @@
+{% if creator_id ==  request.user.id or not profile.allow_messages or request.user.id is None  %}
+<!-- modal starts here -->
+  <!-- ---------------------------------------------------------------------------------- -->
+                {% if request.user.id is None  %}
+
+                  <a href="{% url 'chats:login' %}">
+                    <div class = "flex justify-center mb-10 ">
+                      <button  class = "bg-[#00002E] rounded-full font-bold text-[#8acdea] text-lg mt-5 px-10 py-2 hover:bg-[#161635]"> Message </button>
+                      </div>
+                    </a>
+                {% elif creator_id ==  request.user.id %}
+
+                  <div></div>
+
+                {% elif  not profile.allow_messages %}
+
+                <div class = "flex justify-center mb-6 ">
+                  <button  class = "bg-slate-500 rounded-full font-bold text-[#8acdea] text-lg mt-5 px-10 py-2 "> Message </button>
+                  </div>
+                  <div class="flex justify-center">
+                  <h1 class="text-center px-3 w-fit rounded-lg  font-semibold py-1 bg-gray-300 "> creator is not allowing to Message right now</h1>
+                  </div>
+
+                {% endif %}
+<!-- ---------------------------------------------------------------------------------- -->
+
+                {% elif  session_status == True %}
+
+                <a href="{% url 'chatPage' id=creator_id %}">
+                  <div class = "flex justify-center mb-10 ">
+                    <button  class = "bg-[#00002E] rounded-full font-bold text-[#8acdea] text-lg mt-5 px-10 py-2 hover:bg-[#161635]"> Message </button>
+                    </div>
+                  </a>
+<!-- ---------------------------------------------------------------------------------- -->
+
+{% else %}
+
+<!-- ---------------------------------------------------------------------------------- -->
+                {% if QueueFull == True %}
+
+                <div class = "flex justify-center mb-6 ">
+                  <button  class = "bg-slate-500 rounded-full font-bold text-[#8acdea] text-lg mt-5 px-10 py-2 "> Message </button>
+                  </div>
+                  <div class="flex justify-center">
+                  <h1 class="text-center px-3 w-fit rounded-lg  font-semibold py-1 bg-gray-300 "> creator is not allowing to Message right now</h1>
+                  </div>
+                {% else %}
+
+                <div id = "button" class = "flex justify-center mb-10 ">
+                  <button  onclick="openModal()" class = "bg-[#00002E] rounded-full font-bold text-[#8acdea] text-lg mt-5 px-10 py-2 hover:bg-[#161635]"> Message </button>
+                  </div>
+                  {% endif %}
+                
+<!-- ---------------------------------------------------------------------------------- -->
+
+  {% endif %}
